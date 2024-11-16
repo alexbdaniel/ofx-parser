@@ -20,12 +20,7 @@ public class Parser
         
         OpenFinancialExchange? ofx = (OpenFinancialExchange?)serializer.Deserialize(reader);
 
-        // ofx.SignonResponseMessageSetV1.SignonResponse.Raw_ResponseCreatedAt
-
-        // OpenFinancialExchange? ofx2 = (OpenFinancialExchange?)serializer2.ReadObject(reader);
-
-        var thing = ofx?.SignonResponseMessageSetV1.SignonResponse.ResponseCreatedAt;
-
+        
         
         return ofx;
 

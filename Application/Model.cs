@@ -52,7 +52,7 @@ public class CreditCardAccountFrom
 public class StatementTransaction
 {
     [XmlElement(ElementName = "TRNTYPE")]
-    public required string TransactionType;
+    public required TransactionType TransactionType;
 
     [XmlElement("DTPOSTED")]
     public required string _Raw_PostedToAccountOn  { init; private get; }
@@ -70,11 +70,17 @@ public class StatementTransaction
     public DateTime? UserInitiatedTransactionOn() => 
         _Raw_UserInitiatedTransactionOn == null ? null : Utilities.ParseOfxDateTime(_Raw_UserInitiatedTransactionOn);
     
+    /// <summary>
+    /// Transaction amount.
+    /// </summary>
     [XmlElement(ElementName = "TRNAMT")]
-    public double TRNAMT;
+    public decimal Amount;
 
+    /// <summary>
+    /// Transaction identifier issued by the finanical institution. Used to detect duplicate transactions.
+    /// </summary>
     [XmlElement(ElementName = "FITID")]
-    public double FITID;
+    public double Identifier;
 
     [XmlElement(ElementName = "MEMO")]
     public string? Memo;
@@ -127,8 +133,11 @@ public class LedgerBalance
 [XmlRoot(ElementName = "AVAILBAL")]
 public class AvailableBalance
 {
+    /// <summary>
+    /// Balance amount.
+    /// </summary>
     [XmlElement(ElementName = "BALAMT")]
-    public double Amount;
+    public decimal Amount;
     
     
     [XmlElement("DTASOF")]
@@ -163,8 +172,11 @@ public class CreditCardStatementResponse
 [XmlRoot(ElementName = "CCSTMTTRNRS")]
 public class CreditCardStatementTransactionResponse
 {
+    /// <summary>
+    /// Sort of like GUID, "Client-Assigned Tranaction UID". Used to identify transactions within transaction wrappers. Spec. 3.2.1.
+    /// </summary>
     [XmlElement(ElementName = "TRNUID")]
-    public int TRNUID;
+    public int ClientAssignedTransactionId;
 
     [XmlElement(ElementName = "STATUS")]
     public required Status Status;
