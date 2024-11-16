@@ -1,157 +1,237 @@
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace ConsoleCustom;
 
-// using System.Xml.Serialization;
-// XmlSerializer serializer = new XmlSerializer(typeof(OFX));
-// using (StringReader reader = new StringReader(xml))
-// {
-//    var test = (OFX)serializer.Deserialize(reader);
-// }
+[XmlRoot(ElementName = "STATUS")]
+public class Status
+{
+    [XmlElement(ElementName = "CODE")]
+    public int Code;
 
-[XmlRoot(ElementName="STATUS")]
-public class STATUS { 
-
-	[XmlElement(ElementName="CODE")] 
-	public int CODE; 
-
-	[XmlElement(ElementName="SEVERITY")] 
-	public required string Severity; 
+    [XmlElement(ElementName = "SEVERITY")]
+    public required string Severity;
 }
 
-[XmlRoot(ElementName="SONRS")]
-public class SONRS { 
-
-	[XmlElement(ElementName="STATUS")] 
-	public required STATUS Status; 
-
-	[XmlElement(ElementName="DTSERVER")] 
-	public required double DateTimeServer; 
-
-	[XmlElement(ElementName="LANGUAGE")] 
-	public string Language; 
+[XmlRoot(ElementName = "SONRS")]
+public class SignonResponse
+{
+    [XmlElement(ElementName = "STATUS")]
+    public required Status Status;
+    
+    [XmlElement(ElementName = "DTSERVER")]
+    public DateTime ResponseCreatedAt { get; set; }
+    
+    
+    
+    
+    // private string? _responseCreatedAt;
+    //
+    // [XmlElement("DTSERVER")]
+    // public string _su_responseCreatedAt
+    // {
+    //     private get => _responseCreatedAt ?? $"{nameof(_responseCreatedAt)} == null.";
+    //     init => ResponseCreatedAt = Utilities.ParseOfxDateTime(value);
+    // }
+    //
+    // [XmlIgnore]
+    // public required DateTime ResponseCreatedAt { get; init; }
+    
+    [XmlElement(ElementName = "LANGUAGE")]
+    public string Language = "English";
 }
 
-[XmlRoot(ElementName="SIGNONMSGSRSV1")]
-public class SIGNONMSGSRSV1 { 
 
-	[XmlElement(ElementName="SONRS")] 
-	public SONRS SONRS; 
+
+#region MyRegion
+
+//SIGNONMSGSRQV1 = SignonRequestMessgeSetV1
+[XmlRoot(ElementName = "SIGNONMSGSRSV1")]
+public class SignonResponseMessageSetV1
+{
+    [XmlElement(ElementName = "SONRS")]
+    public required SignonResponse SignonResponse;
 }
 
-[XmlRoot(ElementName="CCACCTFROM")]
-public class CCACCTFROM { 
-
-	[XmlElement(ElementName="ACCTID")] 
-	public double AccountId; 
+[XmlRoot(ElementName = "CCACCTFROM")] 
+public class CreditCardAccountFrom
+{
+    [XmlElement(ElementName = "ACCTID")]
+    public double AccountId;
 }
 
-[XmlRoot(ElementName="STMTTRN")]
-public class STMTTRN { 
+[XmlRoot(ElementName = "STMTTRN")]
+public class StatementTransaction
+{
+    [XmlElement(ElementName = "TRNTYPE")]
+    public required string TransactionType;
 
-	
-	[XmlElement(ElementName="TRNTYPE")] 
-	public required string TransactionType; 
+    // private double _postedToAccountOn;
+    //
+    // [XmlElement(ElementName = "DTPOSTED")]
+    // public double _su_PostedToAccountOn
+    // {
+    //     private get => _postedToAccountOn;
+    //     init => PostedToAccountOn = Utilities.ParseOfxDateTime(value);
+    // }
+    //
+    // [XmlIgnore]
+    // public required DateTime PostedToAccountOn { get; init; }
 
-	[XmlElement(ElementName="DTPOSTED")] 
-	public required double PostedToAccountOn; 
 
-	/// <summary>
-	/// When the user initiated transaction, if known
-	/// </summary>
-	[XmlElement(ElementName="DTUSER")] 
-	public double? UserInitiatedTransactionOn; 
+    /// <summary>
+    /// When the user initiated transaction, if known
+    /// </summary>
+    [XmlElement(ElementName = "DTUSER")]
+    public double? UserInitiatedTransactionOn;
 
-	[XmlElement(ElementName="TRNAMT")] 
-	public double TRNAMT; 
+    [XmlElement(ElementName = "TRNAMT")]
+    public double TRNAMT;
 
-	[XmlElement(ElementName="FITID")] 
-	public double FITID; 
+    [XmlElement(ElementName = "FITID")]
+    public double FITID;
 
-	[XmlElement(ElementName="MEMO")] 
-	public string? Memo; 
+    [XmlElement(ElementName = "MEMO")]
+    public string? Memo;
 }
 
-[XmlRoot(ElementName="BANKTRANLIST")]
-public class BANKTRANLIST { 
+[XmlRoot(ElementName = "BANKTRANLIST")]
+public class BankTransactions
+{
+    private UInt64 _start;
+    
+    [XmlElement(ElementName = "DTSTART")]
+    public UInt64 _su_Start
+    {
+        get => _start;
+        init => Start = Utilities.ParseOfxDateTime(value);
+    }
+    
+    [XmlIgnore]
+    public DateTime? Start { get; init; }
 
-	[XmlElement(ElementName="DTSTART")] 
-	public int DTSTART; 
+    private UInt64 _end;
 
-	[XmlElement(ElementName="DTEND")] 
-	public int DTEND; 
-
-	[XmlElement(ElementName="STMTTRN")] 
-	public List<STMTTRN> STMTTRN; 
+    [XmlElement(ElementName = "DTEND")]
+    public UInt64 _su_End
+    {
+        get => _end;
+        init => End = Utilities.ParseOfxDateTime(value);
+    }
+    
+    [XmlIgnore]
+    public DateTime? End { get; init; }
+    
+    [XmlElement(ElementName = "STMTTRN")]
+    public List<StatementTransaction>? StatementTransaction;
 }
 
-[XmlRoot(ElementName="LEDGERBAL")]
-public class LEDGERBAL { 
+[XmlRoot(ElementName = "LEDGERBAL")]
+public class LedgerBalance
+{
+    /// <summary>
+    /// Current loan principal balance, amount
+    /// </summary>
+    [XmlElement(ElementName = "BALAMT")]
+    public double LoanPrincipalBalance { get; init; }
 
-	[XmlElement(ElementName="BALAMT")] 
-	public double BALAMT; 
+    [XmlElement(ElementName = "DTASOF")]
+    public string CurrentAt { get; set; }
+    
+    // private string? _currentAtString;
+    // [XmlElement("DTASOF", Type = typeof(string))]
+    // public string _su_CurrentAt
+    // {
+    //     get => _currentAtString ?? $"{nameof(_currentAtString)} == null.";
+    //     set => _currentAtString = value; //CurrentAt = Utilities.ParseOfxDateTime(value);
+    // }
 
-	[XmlElement(ElementName="DTASOF")] 
-	public double DTASOF; 
+
+    private DateTime _currentAt;
+
+
+    // /// <summary>
+    // /// Date and time of the current loan balance.
+    // /// = "DTASOF" in specification
+    // /// </summary>
+    // [XmlIgnore]
+    // public DateTime CurrentAt
+    // {
+    //     get { return _currentAt; }
+    //     set { _currentAt = Utilities.ParseOfxDateTime(_su_CurrentAt); }
+    // }
 }
 
-[XmlRoot(ElementName="AVAILBAL")]
-public class AVAILBAL { 
-
-	[XmlElement(ElementName="BALAMT")] 
-	public double BALAMT; 
-
-	[XmlElement(ElementName="DTASOF")] 
-	public double DTASOF; 
+[XmlRoot(ElementName = "AVAILBAL")]
+public class AvailableBalance
+{
+    [XmlElement(ElementName = "BALAMT")]
+    public double Amount;
+    
+    private UInt64 _currentAt;
+    [XmlIgnore]
+    public UInt64 _su_CurrentAt
+    {
+        get => _currentAt;
+        init => CurrentAt = Utilities.ParseOfxDateTime(value);
+    }
+    
+    /// <summary>
+    /// Date and time of the current loan balance.
+    /// = "DTASOF" in specification
+    /// </summary>
+    [XmlElement(ElementName = "DTASOF")]
+    public required DateTime CurrentAt;
 }
 
-[XmlRoot(ElementName="CCSTMTRS")]
-public class CCSTMTRS { 
+[XmlRoot(ElementName = "CCSTMTRS")]
+public class CreditCardStatementResponse
+{
+    [XmlElement(ElementName = "CURDEF")]
+    public required string RecurringPaymentResponseDefaultCurrency = "AUD";
 
-	[XmlElement(ElementName="CURDEF")] 
-	public string CURDEF; 
+    [XmlElement(ElementName = "CCACCTFROM")]
+    public required CreditCardAccountFrom CreditCardAccountFrom;
 
-	[XmlElement(ElementName="CCACCTFROM")] 
-	public CCACCTFROM CCACCTFROM; 
+    [XmlElement(ElementName = "BANKTRANLIST")]
+    public required BankTransactions Transactions;
 
-	[XmlElement(ElementName="BANKTRANLIST")] 
-	public BANKTRANLIST BANKTRANLIST; 
+    [XmlElement(ElementName = "LEDGERBAL")]
+    public required LedgerBalance LedgerBalance;
 
-	[XmlElement(ElementName="LEDGERBAL")] 
-	public LEDGERBAL LEDGERBAL; 
-
-	[XmlElement(ElementName="AVAILBAL")] 
-	public AVAILBAL AVAILBAL; 
+    [XmlElement(ElementName = "AVAILBAL")]
+    public required AvailableBalance AvailableBalance;
 }
 
-[XmlRoot(ElementName="CCSTMTTRNRS")]
-public class CCSTMTTRNRS { 
+[XmlRoot(ElementName = "CCSTMTTRNRS")]
+public class CreditCardStatementTransactionResponse
+{
+    [XmlElement(ElementName = "TRNUID")]
+    public int TRNUID;
 
-	[XmlElement(ElementName="TRNUID")] 
-	public int TRNUID; 
+    [XmlElement(ElementName = "STATUS")]
+    public required Status Status;
 
-	[XmlElement(ElementName="STATUS")] 
-	public STATUS STATUS; 
-
-	[XmlElement(ElementName="CCSTMTRS")] 
-	public CCSTMTRS CCSTMTRS; 
+    [XmlElement(ElementName = "CCSTMTRS")]
+    public required CreditCardStatementResponse CreditCardStatementResponse;
 }
 
-[XmlRoot(ElementName="CREDITCARDMSGSRSV1")]
-public class CREDITCARDMSGSRSV1 { 
-
-	[XmlElement(ElementName="CCSTMTTRNRS")] 
-	public CCSTMTTRNRS CCSTMTTRNRS; 
+[XmlRoot(ElementName = "CREDITCARDMSGSRSV1")]
+public class CreditCardResponseMessageSetV1
+{
+    [XmlElement(ElementName = "CCSTMTTRNRS")]
+    public required CreditCardStatementTransactionResponse CreditCardStatementTransactionResponse;
 }
 
 [Serializable]
-[XmlRoot(ElementName="OFX")]
-public class OpenFinancialExchange { 
+[XmlRoot(ElementName = "OFX")]
+public class OpenFinancialExchange
+{
+    [XmlElement(ElementName = "SIGNONMSGSRSV1")]
+    public required SignonResponseMessageSetV1 SignonResponseMessageSetV1;
 
-	[XmlElement(ElementName="SIGNONMSGSRSV1")] 
-	public required SIGNONMSGSRSV1 SIGNONMSGSRSV1; 
-
-	[XmlElement(ElementName="CREDITCARDMSGSRSV1")] 
-	public required CREDITCARDMSGSRSV1 CREDITCARDMSGSRSV1; 
+    [XmlElement(ElementName = "CREDITCARDMSGSRSV1")]
+    public required CreditCardResponseMessageSetV1 CreditCardResponseMessageSetV1;
 }
 
+#endregion

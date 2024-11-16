@@ -1,0 +1,17 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=A157C28B_002D0F51_002D481A_002DACF3_002DC370A556E4A9/@EntryIndexedValue">91211CB6-65BA-46B3-B2B5-989E203C434C</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=A651590E_002DAB90_002D455C_002D87DD_002D70E8D961E1A8/@EntryIndexedValue">91211CB6-65BA-46B3-B2B5-989E203C434C</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=xUnit/@EntryIndexedValue">33ff99d8-b1ad-4ed5-a4fd-376b97c2c841</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=089330b6_002D9e96_002D46d7_002Da360_002D11632b26a79e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1runs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::91211CB6-65BA-46B3-B2B5-989E203C434C::net8.0::ConsoleCustom.Tests.ParserTest.ParserNotNull&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c8f416d7_002Ddbf5_002D44c6_002Db08c_002D73952cbd0505/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ParserNotNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::91211CB6-65BA-46B3-B2B5-989E203C434C::net8.0::ConsoleCustom.Tests.ParserTest.ParserNotNull&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::91211CB6-65BA-46B3-B2B5-989E203C434C::net8.0::ConsoleCustom.Tests.ParserTest.Play&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::91211CB6-65BA-46B3-B2B5-989E203C434C::net8.0::ConsoleCustom.Tests.UtilitiesDateTimeTest.Uint32DateTimes_Parse_given_valid_input&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::91211CB6-65BA-46B3-B2B5-989E203C434C::net8.0::ConsoleCustom.Tests.Parser2Test.ParserNotNull&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
