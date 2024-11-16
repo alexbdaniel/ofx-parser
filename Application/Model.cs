@@ -19,24 +19,12 @@ public class SignonResponse
     [XmlElement(ElementName = "STATUS")]
     public required Status Status;
     
-    [XmlElement(ElementName = "DTSERVER")]
-    public DateTime ResponseCreatedAt { get; set; }
-    
-    
-    
-    
-    // private string? _responseCreatedAt;
-    //
-    // [XmlElement("DTSERVER")]
-    // public string _su_responseCreatedAt
-    // {
-    //     private get => _responseCreatedAt ?? $"{nameof(_responseCreatedAt)} == null.";
-    //     init => ResponseCreatedAt = Utilities.ParseOfxDateTime(value);
-    // }
-    //
-    // [XmlIgnore]
-    // public required DateTime ResponseCreatedAt { get; init; }
-    
+    [XmlElement("DTSERVER")]
+    public required string _Raw_ResponseCreatedAt { init; private get; }
+    [XmlIgnore]
+    public DateTime ResponseCreatedAt => Utilities.ParseOfxDateTime(_Raw_ResponseCreatedAt);
+
+
     [XmlElement(ElementName = "LANGUAGE")]
     public string Language = "English";
 }
@@ -66,25 +54,22 @@ public class StatementTransaction
     [XmlElement(ElementName = "TRNTYPE")]
     public required string TransactionType;
 
-    // private double _postedToAccountOn;
-    //
-    // [XmlElement(ElementName = "DTPOSTED")]
-    // public double _su_PostedToAccountOn
-    // {
-    //     private get => _postedToAccountOn;
-    //     init => PostedToAccountOn = Utilities.ParseOfxDateTime(value);
-    // }
-    //
-    // [XmlIgnore]
-    // public required DateTime PostedToAccountOn { get; init; }
-
+    [XmlElement("DTPOSTED")]
+    public required string _Raw_PostedToAccountOn  { init; private get; }
+    [XmlIgnore]
+    public DateTime PostedToAccountOn  => Utilities.ParseOfxDateTime(_Raw_PostedToAccountOn);
+    
+    
+    [XmlElement("DTUSER", IsNullable = true)]
+    public string? _Raw_UserInitiatedTransactionOn  { init; private get; }
 
     /// <summary>
     /// When the user initiated transaction, if known
     /// </summary>
-    [XmlElement(ElementName = "DTUSER")]
-    public double? UserInitiatedTransactionOn;
-
+    // [XmlIgnore]
+    public DateTime? UserInitiatedTransactionOn() => 
+        _Raw_UserInitiatedTransactionOn == null ? null : Utilities.ParseOfxDateTime(_Raw_UserInitiatedTransactionOn);
+    
     [XmlElement(ElementName = "TRNAMT")]
     public double TRNAMT;
 
@@ -98,29 +83,23 @@ public class StatementTransaction
 [XmlRoot(ElementName = "BANKTRANLIST")]
 public class BankTransactions
 {
-    private UInt64 _start;
-    
-    [XmlElement(ElementName = "DTSTART")]
-    public UInt64 _su_Start
-    {
-        get => _start;
-        init => Start = Utilities.ParseOfxDateTime(value);
-    }
-    
+    [XmlElement("DTSTART")]
+    public required string _Raw_RangeFrom { init; private get; }
+    /// <summary>
+    /// Range (inclusive) start.
+    /// = "DTSTART" in specification
+    /// </summary>
     [XmlIgnore]
-    public DateTime? Start { get; init; }
-
-    private UInt64 _end;
-
-    [XmlElement(ElementName = "DTEND")]
-    public UInt64 _su_End
-    {
-        get => _end;
-        init => End = Utilities.ParseOfxDateTime(value);
-    }
+    public DateTime RangeFrom => Utilities.ParseOfxDateTime(_Raw_RangeFrom);
     
+    [XmlElement("DTEND")]
+    public required string _Raw_RangeTo { init; private get; }
+    /// <summary>
+    /// Range (inclusive) end.
+    /// = "DTEnd" in specification
+    /// </summary>
     [XmlIgnore]
-    public DateTime? End { get; init; }
+    public DateTime RangeTo => Utilities.ParseOfxDateTime(_Raw_RangeTo);
     
     [XmlElement(ElementName = "STMTTRN")]
     public List<StatementTransaction>? StatementTransaction;
@@ -135,31 +114,14 @@ public class LedgerBalance
     [XmlElement(ElementName = "BALAMT")]
     public double LoanPrincipalBalance { get; init; }
 
-    [XmlElement(ElementName = "DTASOF")]
-    public string CurrentAt { get; set; }
-    
-    // private string? _currentAtString;
-    // [XmlElement("DTASOF", Type = typeof(string))]
-    // public string _su_CurrentAt
-    // {
-    //     get => _currentAtString ?? $"{nameof(_currentAtString)} == null.";
-    //     set => _currentAtString = value; //CurrentAt = Utilities.ParseOfxDateTime(value);
-    // }
-
-
-    private DateTime _currentAt;
-
-
-    // /// <summary>
-    // /// Date and time of the current loan balance.
-    // /// = "DTASOF" in specification
-    // /// </summary>
-    // [XmlIgnore]
-    // public DateTime CurrentAt
-    // {
-    //     get { return _currentAt; }
-    //     set { _currentAt = Utilities.ParseOfxDateTime(_su_CurrentAt); }
-    // }
+    [XmlElement("DTASOF")]
+    public required string _Raw_CurrentAt { init; private get; }
+    /// <summary>
+    /// The point in time for which this loan balance is current.
+    /// = "DTASOF" in specification
+    /// </summary>
+    [XmlIgnore]
+    public DateTime CurrentAt => Utilities.ParseOfxDateTime(_Raw_CurrentAt);
 }
 
 [XmlRoot(ElementName = "AVAILBAL")]
@@ -168,20 +130,15 @@ public class AvailableBalance
     [XmlElement(ElementName = "BALAMT")]
     public double Amount;
     
-    private UInt64 _currentAt;
-    [XmlIgnore]
-    public UInt64 _su_CurrentAt
-    {
-        get => _currentAt;
-        init => CurrentAt = Utilities.ParseOfxDateTime(value);
-    }
     
+    [XmlElement("DTASOF")]
+    public required string _Raw_CurrentAt { init; private get; }
     /// <summary>
-    /// Date and time of the current loan balance.
+    /// The point in time for which this loan balance is current.
     /// = "DTASOF" in specification
     /// </summary>
-    [XmlElement(ElementName = "DTASOF")]
-    public required DateTime CurrentAt;
+    [XmlIgnore]
+    public DateTime CurrentAt => Utilities.ParseOfxDateTime(_Raw_CurrentAt);
 }
 
 [XmlRoot(ElementName = "CCSTMTRS")]

@@ -18,7 +18,7 @@ public class UtilitiesDateTimeTest
     [InlineData(20240927, DateTimeKind.Utc)]
     [InlineData(20240927000000, DateTimeKind.Utc)]
     [InlineData(20241027225959)]
-    public void Uint32DateTimes_Parse_given_valid_input(UInt64 value, DateTimeKind expectedDtKind = DateTimeKind.Utc)
+    public void UIntDateTimes_Parse_given_valid_input(UInt64 value, DateTimeKind expectedDtKind = DateTimeKind.Utc)
     {
         DateTime result = Utilities.ParseOfxDateTime(value);
         
@@ -27,6 +27,22 @@ public class UtilitiesDateTimeTest
             () => Assert.Equal(result.Kind, expectedDtKind),
         ];
 
+        Assert.Multiple(checks);
+    }
+    
+    [Theory]
+    [InlineData("20241027225959")]
+    public void StringDateTimes_Parse_given_valid_input(string value, DateTimeKind expectedDtKind = DateTimeKind.Utc)
+    {
+        DateTime result = Utilities.ParseOfxDateTime(value);
+        
+        Action[] checks =
+        [
+            () => Assert.Equal(result.Kind, expectedDtKind),
+        ];
+        
+        testConsole.WriteLine($"{result:O}");
+        
         Assert.Multiple(checks);
     }
 }

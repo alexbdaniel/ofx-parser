@@ -20,8 +20,7 @@ public class Parser
         
         OpenFinancialExchange? ofx = (OpenFinancialExchange?)serializer.Deserialize(reader);
 
-        var serializer2 = new DataContractSerializer(typeof(OpenFinancialExchange));
-
+        // ofx.SignonResponseMessageSetV1.SignonResponse.Raw_ResponseCreatedAt
 
         // OpenFinancialExchange? ofx2 = (OpenFinancialExchange?)serializer2.ReadObject(reader);
 

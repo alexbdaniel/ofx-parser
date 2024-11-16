@@ -16,7 +16,6 @@ public static class Utilities
     public static DateTime ParseOfxDateTime(double dateTime) =>
         ParseCustom(dateTime.ToString(CultureInfo.InvariantCulture));
     
-    
     public static DateTime ParseOfxDateTime(string dateTime) =>
         ParseCustom(dateTime);
 
