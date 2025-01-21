@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OFXParser", "OFXParser\OFXParser.csproj", "{537D2DE8-3A85-4173-962F-64127926328B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{537D2DE8-3A85-4173-962F-64127926328B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537D2DE8-3A85-4173-962F-64127926328B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537D2DE8-3A85-4173-962F-64127926328B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537D2DE8-3A85-4173-962F-64127926328B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
