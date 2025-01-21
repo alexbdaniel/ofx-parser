@@ -4,6 +4,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>OFX Parser</Title>
+        <Description>Parse OFX content to strongly typed classes you can work with.</Description>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -16,17 +18,18 @@
         <PackageTags>OFX</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/alexbdaniel/ofx-parser</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/alexbdaniel/ofx-parser</RepositoryUrl>
+        <Copyright>Copyright Alex Daniel 2025</Copyright>
 
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+<!--        <PackageReadmeFile>README.md</PackageReadmeFile>-->
     </PropertyGroup>
+    
+    
 
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
     </PropertyGroup>
 
-    <ItemGroup>
-        <None Include="README.md" Pack="true" PackagePath="\"/>
-    </ItemGroup>
 
 </Project>
